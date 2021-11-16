@@ -5,8 +5,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="stackedwaterfalls",
-    version="0.7",
-    author="Prash",
+    version="0.1.0",
+    author="Prashanth",
     author_email="prash@mit.edu",
     description="A small utility to create stacked waterfalls using matplotlib",
     long_description=long_description,
@@ -20,7 +20,7 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    package_dir={"": "stackedwaterfalls"},
-    packages=setuptools.find_packages(where="stackedwaterfalls"),
+    package_dir={"": "src"},
+    packages=setuptools.find_packages(where="src"),
     python_requires=">=3.6",
 )
