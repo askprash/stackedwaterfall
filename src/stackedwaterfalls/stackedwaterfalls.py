@@ -71,7 +71,7 @@ class StackedWaterfalls():
         
         if ax is None:
             fig, ax = plt.subplots(dpi = 100, figsize = (8,5))
-            
+        self.ax = ax   
         if edgecolor is None:
             ecolor = totalcolor
         else:
@@ -132,13 +132,13 @@ class StackedWaterfalls():
 
         shade = ax.axvspan(xshadestart, xshadeend, facecolor = shadecolor, alpha = 0.1, zorder = 0)
         
-        ax.set_xticks([])
+#         ax.set_xticks([])
         self.xaxlabeler(ax, grouplabel, barnames, grouplabelstyle)
                
         if legend:
             self.legendcreator(ax, legkw)
 
-        return ax
+        return ax, xlocs[-1]
     
     def legendcreator(self, ax, legkw):
         rects = [x for x in list(itertools.chain(*self.barlst)) if x.get_height() != 0] # get only those rects that are non-zero heights
