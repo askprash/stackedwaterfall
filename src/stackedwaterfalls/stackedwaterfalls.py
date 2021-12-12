@@ -182,8 +182,8 @@ class StackedWaterfalls():
             # |, ], ]-, |-
             if grouplabelstyle is not None:
                 # endpt = datapt -+ gap +- offset
-                xlineA = xstart  - self.gap + self.gap/5 #Start of label line
-                xlineB = self.xlocs[-1] + self.gap - self.gap/5 #End of label line
+                xlineA = xstart         - (self.barwidth/2 + self.gap/4) #Start of label line
+                xlineB = self.xlocs[-1] + (self.barwidth/2 + self.gap/4) #End of label line
 
                 # Use get_xaxis_transform() so that x coords are in data coords and y are in axes coords
                 ax.plot([xlineA, xlineB], [-bracketoffset,  -bracketoffset ], 
