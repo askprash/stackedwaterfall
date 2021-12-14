@@ -123,12 +123,12 @@ class StackedWaterfalls():
             linkskw['lw']    = linkskw.get('lw', '0.5')
             ax.plot(xs, link_lines, **linkskw, zorder = 1)
             
-        xshadestart = xlocs[0] - gap
-        xshadeend   = xlocs[-1] + gap
+        xshadestart = xlocs[0]  - (barwidth/2 + gap/2)
+        xshadeend   = xlocs[-1] + (barwidth/2 + gap/2)
         
         if total:
             ax.plot([xtotal, xlocs[-1]], [totalval, totalval], **linkskw, zorder = 1)
-            xshadestart = xtotal - gap
+            xshadestart = xtotal - (barwidth/2 + gap/2)
 
         shade = ax.axvspan(xshadestart, xshadeend, facecolor = shadecolor, alpha = 0.1, zorder = 0)
         
@@ -173,10 +173,14 @@ class StackedWaterfalls():
             plt.tight_layout() # need this to get fig rendered. Should be a better way perhaps
             # get lower y lim
             yminlabel = max([abs(x.get_window_extent().transformed(transx.inverted()).y0) for x in ax.get_xticklabels()])
+            yminlabel = max([abs(x.get_window_extent().transformed(ax.transAxes.inverted()).y0) for x in ax.get_xticklabels()])
+            
+#             yminlabel = abs(ax.xaxis.get_tightbbox(ax.figure.canvas.get_renderer()).transformed(transx.inverted()).y0)
+
             bracketoffset = bracketoffset + yminlabel
-        
+            print('yminlabel=', yminlabel,'bracketoffset = ', bracketoffset)
         if grouplabel is not None:
-            ygrplabel = 0
+            ygrplabel = -0.02
             
             # Group label styles:
             # |, ], ]-, |-
@@ -186,7 +190,7 @@ class StackedWaterfalls():
                 xlineB = self.xlocs[-1] + (self.barwidth/2 + self.gap/4) #End of label line
 
                 # Use get_xaxis_transform() so that x coords are in data coords and y are in axes coords
-                ax.plot([xlineA, xlineB], [-bracketoffset,  -bracketoffset ], 
+                ax.hlines(-bracketoffset, *[xlineA, xlineB], #[-bracketoffset,  -bracketoffset ], 
                         transform = transx, color = 'k', clip_on=False, lw = 0.8)
                 ygrplabel = -bracketoffset-0.02
 
